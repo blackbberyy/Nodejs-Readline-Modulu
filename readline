@@ -1,0 +1,77 @@
+
+
+
+READLİNE MODÜLÜ
+readline modülü, kullanıcı girdilerini almak için Node.js'de yaygın olarak kullanılan bir modüldür. Özellikle terminal uygulamalarında kullanıcıdan girdi almak için kullanılır. readline modülü, okuma işlemini kolaylaştırmak için girdileri satır satır okur.
+Örnek 1: Temel Kullanım
+Aşağıdaki örnekte, kullanıcıdan bir metin girilmesi istenir ve girilen metin konsola yazdırılır.
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+readline.question('Lütfen bir metin girin: ', (text) => {
+  console.log(`Girilen metin: ${text}`);
+  readline.close();
+});
+Bu örnekte, createInterface metodu kullanarak readline arayüzünü oluşturuyoruz. input özelliğine, process.stdin değerini atayarak kullanıcının klavyeden girdi yapabilmesini sağlıyoruz. output özelliğine, process.stdout değerini atayarak kullanıcıya konsolda çıktı verebilmesini sağlıyoruz.
+question metodu, kullanıcıdan bir soru sormak için kullanılır. İlk parametre olarak soruyu, ikinci parametre olarak ise kullanıcının verdiği cevabın işleneceği bir fonksiyon alır. Burada girilen metin text değişkeninde saklanır.
+close metodu, kullanıcı girdileri alındıktan sonra readline arayüzünü kapatır.
+
+Örnek 2: Sayı Girişi
+Aşağıdaki örnekte, kullanıcıdan sayı girmesi istenir ve girilen sayıya göre bir çıktı verilir.
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+readline.question('Lütfen bir sayı girin: ', (number) => {
+  if (number % 2 == 0) {
+    console.log(`${number} çift sayıdır.`);
+  } else {
+    console.log(`${number} tek sayıdır.`);
+  }
+  readline.close();
+});
+Bu örnekte, kullanıcıdan bir sayı girmesi istenir ve girilen sayıya göre bir çıktı verilir. if koşuluyla girilen sayının çift mi tek mi olduğu kontrol edilir.
+
+Örnek 3: Tekrarlı Sorgu
+Aşağıdaki örnekte, kullanıcıların isimlerini kaydetmek için bir program yazılmıştır. Program, kullanıcılardan sürekli olarak isim alır ve isimlerin bir listesini saklar.
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+const names = [];
+function getName() {
+  readline.question('Lütfen bir isim girin: ', (name) => {
+
+readline modülü özelleştirilebilir ve farklı şekillerde kullanılabilir, ancak temel kullanımı girdileri almak ve işlemek için question metodu ile okuma hattı oluşturmak ve on('line') olayı ile girdi satırlarını yakalamaktır. Bu şekilde, kullanıcının girdilerini almak için bir dizi soru sorulabilir ve bu girdiler daha sonra işlemlerde kullanılabilir.
+Örneğin, aşağıdaki kodda readline modülü kullanılarak kullanıcıdan isim ve yaş gibi bilgiler alınır ve bu bilgiler bir nesne olarak kaydedilir:
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+let person = {};
+rl.question('What is your name? ', (name) => {
+  person.name = name;
+  rl.question('How old are you? ', (age) => {
+    person.age = age;
+    console.log(`Hello ${person.name}, you are ${person.age} years old.`);
+    rl.close();
+  });
+});
+Bu örnekte, readline modülü kullanılarak createInterface metodu ile bir okuma hattı oluşturulur. question metodunu kullanarak, kullanıcıdan sırayla isim ve yaş bilgileri sorulur ve bu bilgiler bir nesne olarak person değişkenine kaydedilir. Son olarak, console.log ile bilgileri ekrana yazdırılır ve rl.close() ile okuma hattı kapatılır.
+   
+SIGINT (Signal Interrupt) klavyeden Ctrl+C tuş kombinasyonuna basıldığında gönderilen bir işletim sistemi sinyalidir. Bu sinyal, çalışan bir uygulamayı kullanıcının isteğiyle sonlandırmak için kullanılır. Node.js, bu sinyali alır ve uygulamayı graseful bir şekilde kapatır.
+rl.prompt() metodu, readline modülündeki Interface objesine bir okuma işlemi başlatmak için kullanılır. Kullanıcıya bir "prompt" (Örn. "> " veya "Enter your name: ") gösterir ve kullanıcının giriş yapmasını bekler.
+Örneğin, aşağıdaki kodda, kullanıcıya "> " şeklinde bir prompt gösterilir ve kullanıcının giriş yapması beklenir:
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+rl.prompt('> ');
+rl.on('line', (input) => {
+  console.log(`You entered: ${input}`);
+  rl.close();
+});
